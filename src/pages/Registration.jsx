@@ -2,16 +2,13 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Input from '../components/atoms/Input';
 import { useFormValues } from '../hooks/useFormValues';
-import { Context } from '../store';
+import { Context, initUser } from '../store';
 
 export default function Registration() {
   const [context, setContext] = useContext(Context);
   const [submitted, setSubmitted] = useState(false);
   const { formValues, handleInput } = useFormValues({
-    fname: '',
-    email: '',
-    lname: '',
-    pass: '',
+    ...initUser,
     confirmPass: '',
   });
 
@@ -20,6 +17,7 @@ export default function Registration() {
     if (!formValues.pass || formValues.pass !== formValues.confirmPass) {
       return console.error('password is empty or does not match with confirm password');
     }
+    delete formValues.confirmPass;
     console.log({ formValues });
     setContext({ ...context, user: formValues });
     setSubmitted(true);
