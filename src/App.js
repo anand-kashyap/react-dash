@@ -1,24 +1,20 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import { Common } from './components/molecules/Common';
+import { Router } from './Router';
+import { Context } from './store';
 
 function App() {
+  const [context, setContext] = useState({
+    user: null, kycDone: false
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Context.Provider value={[context, setContext]}>
+      <Common kycDone={context.kycDone}>
+        <Router />
+      </Common>
+    </Context.Provider>
   );
 }
 
