@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Context } from '../../store';
 
 export const Common = ({ children }) => {
-  const [{ user, kycDone, setContext }] = useContext(Context);
+  const [{ user, kycDone }, setContext] = useContext(Context);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -11,7 +11,7 @@ export const Common = ({ children }) => {
       user: null,
       kycDone: false,
     });
-    navigate('/');
+    navigate('/login');
   };
 
   return (
