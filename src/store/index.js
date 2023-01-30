@@ -9,7 +9,7 @@ export const initUser = {
 
 export const initKYC = {
   gender: 'M', // or 'F'
-  isMarried: false,
+  isMarried: 'false',
   dob: '',
   fatherFName: '',
   fatherLName: '',

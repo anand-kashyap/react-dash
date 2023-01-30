@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './App.css';
-import { Common } from './components/molecules/Common';
 import { Router } from './Router';
 import { Context } from './store';
 
@@ -11,9 +10,7 @@ function App() {
 
   return (
     <Context.Provider value={[context, setContext]}>
-      <Common kycDone={context.kycDone}>
-        <Router />
-      </Common>
+      <Router />
     </Context.Provider>
   );
 }

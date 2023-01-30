@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import Input from '../components/atoms/Input';
 import { useFormValues } from '../hooks/useFormValues';
 import { Context, initUser } from '../store';
+import { getFullName } from '../utils/getFullName';
 
 export default function Registration() {
   const [context, setContext] = useContext(Context);
   const [submitted, setSubmitted] = useState(false);
-  const { formValues, handleInput } = useFormValues({
+  const { formValues, handleInput, clearForm } = useFormValues({
     ...initUser,
     confirmPass: '',
   });
@@ -19,25 +20,30 @@ export default function Registration() {
     }
     delete formValues.confirmPass;
     console.log({ formValues });
-    setContext({ ...context, user: formValues });
+    setContext((ctx) => {
+      const user = { ...ctx.user, ...formValues };
+      return { ...context, user };
+    });
     setSubmitted(true);
+    clearForm();
   }
 
+  const { fname, lname, email, pass, confirmPass } = formValues;
+  const { user } = context;
   return (
     <div className='register-user'>
       <h2>Register</h2>
       {submitted && (
         <p>
-          Registered new user : <strong>{formValues.fname + ' ' + formValues.lname}</strong>.{' '}
-          <Link to='/login'>Login?</Link>
+          Registered new user : <strong>{getFullName(user.fname, user.lname)}</strong>.<Link to='/login'>Login?</Link>
         </p>
       )}
       <form className='form' onSubmit={handleRegister} onChange={handleInput}>
-        <Input name='fname' placeholder='John' label='First Name' value={formValues.fname} />
-        <Input name='lname' placeholder='Doe' label='Last Name' value={formValues.lname} />
-        <Input name='email' placeholder='abc@xyz.com' type='email' label='Email' value={formValues.email} />
-        <Input name='pass' type='password' label='Password' value={formValues.pass} />
-        <Input name='confirmPass' type='password' label='Confirm Password' value={formValues.confirmPass} />
+        <Input name='fname' placeholder='John' label='First Name' value={fname} />
+        <Input name='lname' placeholder='Doe' label='Last Name' value={lname} />
+        <Input name='email' placeholder='abc@xyz.com' type='email' label='Email' value={email} />
+        <Input name='pass' type='password' label='Password' value={pass} />
+        <Input name='confirmPass' type='password' label='Confirm Password' value={confirmPass} />
         <button>Register</button>
       </form>
 

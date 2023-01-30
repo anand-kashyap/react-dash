@@ -10,6 +10,11 @@ header {
   justify-content: space-between;
 }
 
+.header-right {
+  display: flex;
+  column-gap: 10px;
+}
+
 .register-user {
   margin-left: 25vw;
   width: 50vw;
@@ -25,4 +30,8 @@ header {
 }
 .form button {
   margin: 5px 0;
+}
+
+.kyc-form {
+  border: none;
 }

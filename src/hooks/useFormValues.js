@@ -12,5 +12,8 @@ export function useFormValues(initValues) {
     });
   };
 
-  return { formValues: values, handleInput }
+  function clearForm() {
+    setValues(initValues);
+  }
+  return { formValues: values, handleInput, clearForm }
 }
